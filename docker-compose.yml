@@ -1,0 +1,21 @@
+version: "3.4"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  django:
+    build: .
+    environment:
+      - DB_NAME=webhook_catchall
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+    ports:
+      - "8181:80"
+    links:
+      - db
