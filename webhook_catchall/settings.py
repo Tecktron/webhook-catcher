@@ -9,17 +9,11 @@ if os.path.exists(os.path.join(BASE_DIR, ".env")):
 
     load_dotenv()
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+SECRET_KEY = os.getenv("SECRET_KEY", os.urandom(64))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-cg#+o=ts5vfxl5fh^#rcy(7yy5pqqp@v8^z_q3&&n@0dc0lxqj"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "true").lower() != "false"
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 INSTALLED_APPS = [
