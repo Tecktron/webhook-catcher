@@ -15,7 +15,8 @@ There are 2 ways to use this:
 2. Run this as a local Python service using the built in Django server
 
 ### Docker Service
-The latest docker image is available at my docker hub. [You can find it here]()
+The latest docker image is available at my docker hub.
+[You can find it here](https://hub.docker.com/r/tecktron/webhook_catchall)
 
 #### Options
 The image provides options to change the database settings via environment variables
@@ -28,6 +29,8 @@ so that you can adjust to fit your system. The variables are:
 
 You can also change the default admin username and password as well. To do so simply pass in the
 environment params of `ADMIN_USER` and `ADMIN_PASS` (defaults to `admin`:`admin`)
+
+Other setting that can be adjusted are Django's `SECRET_KEY` (default: urandom(64)) and `DEBUG` (default: True).
 
 ##### Demo docker-compose.yml
 Included in the project is an example `docker-compose.yml` that will bring up the project
