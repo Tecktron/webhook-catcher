@@ -8,7 +8,9 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   webhook_catchall:
-    image: tecktron/webhook_catchall:latest
+    build: .
+    volumes:
+      - .:/app
     environment:
       - DB_NAME=webhook_catchall
       - DB_USER=postgres

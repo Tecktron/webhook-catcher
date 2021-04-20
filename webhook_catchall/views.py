@@ -1,7 +1,12 @@
 import json
 import logging
 
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
+from django.http.response import (
+    HttpResponse,
+    HttpResponseBadRequest,
+    HttpResponseNotFound,
+)
+from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -12,12 +17,17 @@ logger = logging.getLogger(__name__)
 
 
 class CatchAllView(View):
+    @staticmethod
+    def get_index():
+        content = render_to_string("index.html")
+        return HttpResponse(content, status=200)
+
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         if request.path.endswith("favicon.ico"):
-            return HttpResponseNotFound(content="Not Found")
-        if request.path.startswith("/admin/") or request.path.startswith("/static/"):
-            return super().dispatch(request, *args, **kwargs)
+            return HttpResponseNotFound(content=b"Not Found")
+        if request.method == "GET" and request.path in {"", "/"}:
+            return self.get_index()
 
         caught_webhook = WebhookData(
             path=request.path,

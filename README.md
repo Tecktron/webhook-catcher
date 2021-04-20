@@ -30,7 +30,7 @@ so that you can adjust to fit your system. The variables are:
 You can also change the default admin username and password as well. To do so simply pass in the
 environment params of `ADMIN_USER` and `ADMIN_PASS` (defaults to `admin`:`admin`)
 
-Other setting that can be adjusted are Django's `SECRET_KEY` (default: urandom(64)) and `DEBUG` (default: True).
+Other setting that can be adjusted are Django's `SECRET_KEY` and `DEBUG` (default: True).
 
 ##### Demo docker-compose.yml
 Included in the project is an example `docker-compose.yml` that will bring up the project
@@ -90,7 +90,9 @@ This is an opensource project, contributions are welcome. Please follow the guid
 contribute to this project.
 
 ### Setup
-1. Use `pip` to install the additional `dev-requirements.txt`.
+- Use `pip` to install the additional `dev-requirements.txt`.
+- You may also find the `dev.docker-compose.yml` useful, which builds using the current directory
+  and adds it as a volume so changes are reflected immediately.
 
 ### Coding standards
 Before submitting any code please be sure you have done the following:

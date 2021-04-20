@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.0.1-beta] - 20/04/2021
+- Added index for "/" GET requests.
+- Added dev.docker-compose for development
 
 ## [1.0.0-beta] - 19/04/2021
 - Initial working release

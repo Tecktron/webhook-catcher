@@ -21,4 +21,5 @@ from webhook_catchall.views import CatchAllView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("<path:_>", CatchAllView.as_view()),
+    path("", CatchAllView.as_view()),
 ]

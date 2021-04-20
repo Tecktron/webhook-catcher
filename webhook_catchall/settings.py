@@ -9,7 +9,10 @@ if os.path.exists(os.path.join(BASE_DIR, ".env")):
 
     load_dotenv()
 
-SECRET_KEY = os.getenv("SECRET_KEY", os.urandom(64))
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    "X4Mu0fajL2DKpnfpRol1ml0hYlB+bXpXLpS1GqPGgm+KFcUSGmOjZn0XfgNic5qF1/Y8+WMgHLxSpDgKkMRqOA",
+)
 
 DEBUG = os.getenv("DEBUG", "true").lower() != "false"
 
