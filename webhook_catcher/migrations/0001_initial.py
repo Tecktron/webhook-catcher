@@ -26,9 +26,7 @@ class Migration(migrations.Migration):
                 ("method", models.CharField(max_length=56, verbose_name="HTTP Method")),
                 (
                     "path",
-                    django_postgres_unlimited_varchar.UnlimitedCharField(
-                        verbose_name="Incoming path"
-                    ),
+                    django_postgres_unlimited_varchar.UnlimitedCharField(verbose_name="Incoming path"),
                 ),
                 ("params", models.JSONField(null=True, verbose_name="Query params")),
                 ("json", models.JSONField(null=True, verbose_name="Json data")),
@@ -36,9 +34,7 @@ class Migration(migrations.Migration):
                 ("headers", models.JSONField(verbose_name="Request headers")),
                 (
                     "created",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Time created"
-                    ),
+                    models.DateTimeField(auto_now_add=True, verbose_name="Time created"),
                 ),
             ],
         ),

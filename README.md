@@ -1,4 +1,4 @@
-# Webhook Catchall
+# Webhook Catcher
 A simple HTTP service based on Django that was built to catch and show webhook data in a testing environment.
 Includes a Django admin page what shows the url that was hit, and the data that was received.
 
@@ -12,16 +12,16 @@ Includes a Django admin page what shows the url that was hit, and the data that 
 
 There are 2 ways to use this:
 1. Use the Docker image (easiest)
-2. Run this as a local Python service using the built in Django server
+2. Run this as a local Python service using the built-in Django server
 
 ### Docker Service
 The latest docker image is available at my docker hub.
-[You can find it here](https://hub.docker.com/r/tecktron/webhook_catchall)
+[You can find it here](https://hub.docker.com/r/tecktron/webhook_catcher)
 
 #### Options
 The image provides options to change the database settings via environment variables
 so that you can adjust to fit your system. The variables are:
- - `DB_NAME`: The name of the database (e.g., `webhook_catchall`)
+ - `DB_NAME`: The name of the database (e.g., `webhook_catcher`)
  - `DB_USER`: The username of the database (e.g., `postgres`)
  - `DB_PASS`: The password of the database (e.g., `postgres`)
  - `DB_HOST`: The host of the database (e.g., `127.0.0.1`)
@@ -30,7 +30,7 @@ so that you can adjust to fit your system. The variables are:
 You can also change the default admin username and password as well. To do so simply pass in the
 environment params of `ADMIN_USER` and `ADMIN_PASS` (defaults to `admin`:`admin`)
 
-Other setting that can be adjusted are Django's `SECRET_KEY` and `DEBUG` (default: True).
+Other setting that can be adjusted are Django's `SECRET_KEY` and `DEBUG` (default: False).
 
 ##### Demo docker-compose.yml
 Included in the project is an example `docker-compose.yml` that will bring up the project
@@ -40,7 +40,7 @@ with the default admin to see what was captured.
 
 
 ### Local Django server
-You can of course run this locally using Django's build in test server. Please don't
+You can of course run this locally using Django's built-in test server. Please don't
 forget to update parameters here with those of your system and choosing.
 
 1. Clone this repo.
@@ -49,7 +49,7 @@ forget to update parameters here with those of your system and choosing.
 4. Create a file called `.env` in the project root (this file is git ignored FYI)
 5. Copy this code block and replace it with the settings from your database setup:
    ```bash
-   DB_NAME=webhook_catchall
+   DB_NAME=webhook_catcher
    DB_USER=postgres
    DB_PASS=postgres
    DB_HOST=127.0.0.1
@@ -90,7 +90,7 @@ This is an opensource project, contributions are welcome. Please follow the guid
 contribute to this project.
 
 ### Setup
-- Use `pip` to install the additional `dev-requirements.txt`.
+- Use `pip` to install the additional `dev.requirements.txt`.
 - You may also find the `dev.docker-compose.yml` useful, which builds using the current directory
   and adds it as a volume so changes are reflected immediately.
 

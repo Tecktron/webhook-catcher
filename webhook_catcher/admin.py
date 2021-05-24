@@ -1,12 +1,12 @@
-from django.contrib import admin
+from django.contrib.admin import ModelAdmin, register
 from django.db.models.fields.json import JSONField
 from prettyjson import PrettyJSONWidget
 
-from webhook_catchall.models import WebhookData
+from webhook_catcher.models import WebhookData
 
 
-@admin.register(WebhookData)
-class WebhookDataAdmin(admin.ModelAdmin):
+@register(WebhookData)
+class WebhookDataAdmin(ModelAdmin):
     search_fields = ("path",)
     empty_value_display = "Null"
     list_filter = ("method",)

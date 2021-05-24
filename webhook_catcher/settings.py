@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv(
     "X4Mu0fajL2DKpnfpRol1ml0hYlB+bXpXLpS1GqPGgm+KFcUSGmOjZn0XfgNic5qF1/Y8+WMgHLxSpDgKkMRqOA",
 )
 
-DEBUG = os.getenv("DEBUG", "true").lower() != "false"
+DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "prettyjson",
-    "webhook_catchall",
+    "webhook_catcher",
 ]
 
 MIDDLEWARE = [
@@ -39,7 +39,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-ROOT_URLCONF = "webhook_catchall.urls"
+ROOT_URLCONF = "webhook_catcher.urls"
 
 TEMPLATES = [
     {
@@ -60,7 +60,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "webhook_catchall.wsgi.application"
+WSGI_APPLICATION = "webhook_catcher.wsgi.application"
 
 
 # Database
@@ -119,9 +119,7 @@ LOGGING = {
             "filters": ["require_debug_true"],
         },
     },
-    "loggers": {
-        "webhook_catchall": {"handlers": ["console", "debug"], "propogate": False}
-    },
+    "loggers": {"webhook_catcher": {"handlers": ["console", "debug"], "propogate": False}},
 }
 
 

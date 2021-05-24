@@ -7,16 +7,17 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  webhook_catchall:
+  webhook_catcher:
     build: .
     volumes:
       - .:/app
     environment:
-      - DB_NAME=webhook_catchall
+      - DB_NAME=webhook_catcher
       - DB_USER=postgres
       - DB_PASS=postgres
       - DB_HOST=db
       - DB_PORT=5432
+      - DEBUG=true
     ports:
       - "8181:80"
     links:

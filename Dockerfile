@@ -8,7 +8,7 @@ RUN apt-get clean && apt-get update && \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-ENV MODULE_NAME=webhook_catchall.wsgi
+ENV MODULE_NAME=webhook_catcher.wsgi
 
 COPY . /app
 RUN chmod +x /app/prestart.sh

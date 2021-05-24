@@ -1,22 +1,20 @@
 import json
 import logging
 
-from django.http.response import (
-    HttpResponse,
-    HttpResponseBadRequest,
-    HttpResponseNotFound,
-)
+from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
-from webhook_catchall.models import WebhookData
+from webhook_catcher.models import WebhookData
 
 logger = logging.getLogger(__name__)
 
 
-class CatchAllView(View):
+class CatcherView(View):
+    INDEX_PATHS = {"", "/", "index.html", "index.htm"}
+
     @staticmethod
     def get_index():
         content = render_to_string("index.html")
@@ -26,9 +24,10 @@ class CatchAllView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.path.endswith("favicon.ico"):
             return HttpResponseNotFound(content=b"Not Found")
-        if request.method == "GET" and request.path in {"", "/"}:
+        if request.method == "GET" and request.path in self.INDEX_PATHS:
             return self.get_index()
 
+        logger.info(f"Webhook caught: {request.method}: {request.path}")
         caught_webhook = WebhookData(
             path=request.path,
             method=request.method,
@@ -47,8 +46,4 @@ class CatchAllView(View):
                 logger.warning(error_reason)
 
         caught_webhook.save()
-        return (
-            HttpResponse(status=204)
-            if not error_reason
-            else HttpResponseBadRequest(error_reason)
-        )
+        return HttpResponse(status=204) if not error_reason else HttpResponseBadRequest(error_reason)

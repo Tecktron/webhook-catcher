@@ -15,4 +15,4 @@ __pycache__/
 build/
 dist/
 static/
-docker-compose.yml
+*docker-compose.yml

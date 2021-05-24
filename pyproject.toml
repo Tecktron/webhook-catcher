@@ -1,14 +1,11 @@
 [tool.isort]
 profile = "black"
 multi_line_output = 3
-src_paths = ["webhook_catchall"]
+src_paths = ["webhook_catcher"]
 remove_redundant_aliases = true
-line-length = 120
+line_length = 120
 
 [tool.black]
 line-length = 120
-target-version = ['py37']
+target-version = ['py38']
 exclude = '/(\.idea|\.eggs|\.git|\.hg|static|\.mypy\_cache|\.nox|\.tox|\.venv|venv|_build|buck-out|build|dist|configs|docker|.+\.egg-info|\.pytest_cache)/'
-
-[tool.flake8]
-max-line-length = 120

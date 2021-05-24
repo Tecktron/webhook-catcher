@@ -7,10 +7,10 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  webhook_catchall:
-    image: tecktron/webhook_catchall:latest
+  webhook_catcher:
+    image: tecktron/webhook_catcher:latest
     environment:
-      - DB_NAME=webhook_catchall
+      - DB_NAME=webhook_catcher
       - DB_USER=postgres
       - DB_PASS=postgres
       - DB_HOST=db

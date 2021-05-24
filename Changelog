@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.2] - 24/05/2021
+- Official Release
+- Renamed project
+- Updated tool settings
+- Added tests
+
 ## [1.0.1-beta] - 20/04/2021
 - Added index for "/" GET requests.
 - Added dev.docker-compose for development

@@ -4,8 +4,6 @@
 
 x=0
 PGCONNECT=postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/postgres
-printenv
-echo $PGCONNECT
 until psql $PGCONNECT -c '\q'; do
   if [ $x -gt 10 ]; then
     echo "Cannot find postgres, aborting"
@@ -23,10 +21,7 @@ psql ${PGCONNECT} -tc "SELECT 1 FROM pg_database WHERE datname = '${DB_NAME}'" |
 ADMIN_USER=${ADMIN_USER:-"admin"}
 ADMIN_PASS=${ADMIN_PASS:-"admin"}
 
-echo "Running migrations"
 python manage.py migrate
-echo "Creating default user"
 python manage.py create_default_superuser --username="${ADMIN_USER}" --password="${ADMIN_PASS}"
-echo "collecting static"
 mkdir -p /app/static
 python manage.py collectstatic --no-input
