@@ -59,10 +59,13 @@ jobs:
             mkdir static
       - run:
           name: Create DB
-          command: PGPASSWORD=test psql -h localhost -p 5432 -U test -c 'create database test_webhook_catcher;'
+          command: PGPASSWORD=test psql -h localhost -p 5432 -U test -c "create database test_webhook_catcher;"
       - run:
           name: Run tests
           command: tox -e py38
       - run:
           name: Copy report
           command: codecov -t $CODECOV_TOKEN
+      - run:
+          name: Close DB
+          command: PGPASSWORD=test psql -h localhost -p 5432 -U test -c "COPY (SELECT 1) TO PROGRAM 'pg_ctl stop -m smart --no-wait';"
