@@ -1,4 +1,5 @@
 .git/
+.circleci/
 .gitignore
 .idea/
 .DS_Store/
@@ -7,6 +8,7 @@
 *.iml
 *.md
 .coverage
+coverage.xml
 __pycache__/
 *.py[cod]
 .Python
