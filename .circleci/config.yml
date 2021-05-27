@@ -57,6 +57,7 @@ jobs:
           command: |
             pip install pip tox tox-pip-extensions codecov --upgrade
             mkdir static
+            touch .env
       - run:
           name: Create DB
           command: PGPASSWORD=test psql -h localhost -p 5432 -U test -c "create database test_webhook_catcher;"
