@@ -1,0 +1,68 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.4.0
+
+workflows:
+  lint-and-test:
+    jobs:
+      - lint
+      - test-and-report:
+          context:
+            - codecov
+
+jobs:
+  lint:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - python/install-packages:
+          args: isort black flake8 --upgrade
+          pkg-manager: pip
+          pypi-cache: false
+      - run:
+          name: Checking imports with isort
+          command: isort -q -c --diff .
+      - run:
+          name: Checking code style with Python Black
+          command: black -q --check -t py38 --diff .
+      - run:
+          name: Checking code standards with Flake8
+          command: flake8 .
+
+  test-and-report:
+    docker:
+      - image: cimg/python:3.8
+        environment:
+          DB_NAME: webhook_catcher
+          DB_USER: test
+          DB_PASS: test
+          DB_HOST: localhost
+          DB_PORT: 5432
+      - image: circleci/postgres:latest-ram
+        environment:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+    steps:
+      - checkout
+      - run:
+          name: Install system packages
+          command: |
+            sudo apt-get update
+            sudo apt-get -y install --no-install-recommends libpq-dev postgresql-client
+      - run:
+          name: Install dependencies
+          command: |
+            pip install pip tox tox-pip-extensions codecov --upgrade
+            mkdir static
+      - run:
+          name: Create DB
+          command: PGPASSWORD=test psql -h localhost -p 5432 -U test -c 'create database test_webhook_catcher;'
+      - run:
+          name: Run tests
+          command: tox -e py38
+      - run:
+          name: Copy report
+          command: codecov -t $CODECOV_TOKEN
