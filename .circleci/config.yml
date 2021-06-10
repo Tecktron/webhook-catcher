@@ -62,7 +62,7 @@ jobs:
           command: PGPASSWORD=test psql -h localhost -p 5432 -U test -c "create database test_webhook_catcher;"
       - run:
           name: Install testing dependencies
-          command: pip install tox tox-pip-extensions codecov --upgrade --no-cache
+          command: pip install pip tox tox-pip-extensions codecov --upgrade --no-cache
       - run:
           name: Run tests
           command: tox -e py38
