@@ -51,14 +51,16 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install --no-install-recommends libpq-dev postgresql-client
       - run:
-          name: Install dependencies
+          name: Setup app environment
           command: |
-            pip install pip tox tox-pip-extensions codecov --upgrade
             mkdir static
             touch .env
       - run:
           name: Create DB
           command: PGPASSWORD=test psql -h localhost -p 5432 -U test -c "create database test_webhook_catcher;"
+      - run:
+          name: Install testing dependencies
+          command: pip install pip tox tox-pip-extensions codecov --upgrade --no-cache
       - run:
           name: Run tests
           command: tox -e py38
