@@ -7,9 +7,7 @@ workflows:
   lint-and-test:
     jobs:
       - lint
-      - test-and-report:
-          context:
-            - codecov
+      - test-and-report
 
 jobs:
   lint:
