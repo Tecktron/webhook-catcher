@@ -33,7 +33,10 @@ so that you can adjust to fit your system. The variables are:
 You can also change the default admin username and password as well. To do so simply pass in the
 environment params of `ADMIN_USER` and `ADMIN_PASS` (defaults to `admin`:`admin`)
 
-Other setting that can be adjusted are Django's `SECRET_KEY` and `DEBUG` (default: False).
+Other setting that can be adjusted are:
+- `SECRET_KEY` Django's secret key value. See settings.py for default.
+- `DEBUG`: Django's debug setting (default: false).
+- `SKIP_CREATE_DB` When `true` (default: false) skips trying to automatically create the db if it's not there (this is useful for cloud deploys).
 
 ##### Demo docker-compose.yml
 Included in the project is an example `docker-compose.yml` that will bring up the project

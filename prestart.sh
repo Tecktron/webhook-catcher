@@ -2,8 +2,19 @@
 # Borrowed from https://docs.docker.com/compose/startup-order/
 # wait-for-postgres.sh
 
+SKIP_CREATE_DB=${SKIP_CREATE_DB:-"false"}
+
+if [ "${SKIP_CREATE_DB}" = "true" ]; then
+  SKIP_CREATE_DB="true"
+fi
+
 x=0
-PGCONNECT=postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/postgres
+if [ "${SKIP_CREATE_DB}" = "true" ]; then
+  PGCONNECT=postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+else
+  PGCONNECT=postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/postgres
+fi
+
 until psql $PGCONNECT -c '\q'; do
   if [ $x -gt 10 ]; then
     echo "Cannot find postgres, aborting"
@@ -16,7 +27,10 @@ done
 
 echo "Postgres is up!"
 cd /app || exit 1
-psql ${PGCONNECT} -tc "SELECT 1 FROM pg_database WHERE datname = '${DB_NAME}'" | grep -q 1 || psql ${PGCONNECT} -c "CREATE DATABASE \"${DB_NAME}\" WITH OWNER '${DB_USER}'"
+
+if [ "${SKIP_CREATE_DB}" != "true" ]; then
+  psql ${PGCONNECT} -tc "SELECT 1 FROM pg_database WHERE datname = '${DB_NAME}'" | grep -q 1 || psql ${PGCONNECT} -c "CREATE DATABASE \"${DB_NAME}\" WITH OWNER '${DB_USER}'"
+fi
 
 ADMIN_USER=${ADMIN_USER:-"admin"}
 ADMIN_PASS=${ADMIN_PASS:-"admin"}
