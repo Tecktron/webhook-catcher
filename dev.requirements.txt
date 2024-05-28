@@ -1,7 +1,6 @@
 -r ./requirements.txt
 pip
 tox
-tox-pip-extensions
 isort
 flake8
 factory-boy
@@ -13,4 +12,3 @@ pytest-xdist
 freezegun
 black
 django-coverage-plugin
-
