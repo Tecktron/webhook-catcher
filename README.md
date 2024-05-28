@@ -9,7 +9,7 @@ Includes a Django admin page what shows the url that was hit, and the data that 
 
 ## Requirements
  - A Postgres Database.
- - Python 3.8+ or Docker
+ - Python 3.8+ or Docker (pinned at 3.12)
 
 ## Installation
 
@@ -108,5 +108,4 @@ Before submitting any code please be sure you have done the following:
 ### Testing
 Every bit of code you submit must be fully tested.
 All testing is done using pytest, please follow pytest style testing (not unittest).
-You can simply use tox to run the tests: `tox -e py39`. This supports environments
-`py36` - `py39`.
+You can simply use tox to run the tests: `tox -e py312`.

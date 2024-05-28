@@ -8,7 +8,9 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   webhook_catcher:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     volumes:
       - .:/app
     environment:

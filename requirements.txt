@@ -1,5 +1,5 @@
 psycopg2-binary
-Django==3.1
+django<5
 django-postgres-unlimited-varchar
 django-prettyjson
 python-dotenv
