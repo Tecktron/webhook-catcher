@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@1.4.0
+  python: circleci/python@2.1.1
 
 workflows:
   lint-and-test:
@@ -12,7 +12,7 @@ workflows:
 jobs:
   lint:
     docker:
-      - image: cimg/python:3.8
+      - image: cimg/python:3.12
     steps:
       - checkout
       - python/install-packages:
@@ -24,14 +24,14 @@ jobs:
           command: isort -q -c --diff .
       - run:
           name: Checking code style with Python Black
-          command: black -q --check -t py38 --diff .
+          command: black -q --check -t py312 --diff .
       - run:
           name: Checking code standards with Flake8
           command: flake8 .
 
   test-and-report:
     docker:
-      - image: cimg/python:3.8
+      - image: cimg/python:3.12
         environment:
           DB_NAME: webhook_catcher
           DB_USER: test
@@ -60,10 +60,10 @@ jobs:
           command: PGPASSWORD=test psql -h localhost -p 5432 -U test -c "create database test_webhook_catcher;"
       - run:
           name: Install testing dependencies
-          command: pip install pip tox tox-pip-extensions codecov --upgrade --no-cache
+          command: pip install pip tox codecov --upgrade --no-cache
       - run:
           name: Run tests
-          command: tox -e py38
+          command: tox -e py312
       - run:
           name: Copy report
           command: codecov -t $CODECOV_TOKEN
