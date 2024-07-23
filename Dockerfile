@@ -5,6 +5,7 @@ RUN apt-get clean && apt-get update && \
     apt-utils \
     build-essential \
     libpq-dev \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 ENV MODULE_NAME=webhook_catcher.wsgi
